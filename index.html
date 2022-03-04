@@ -11,10 +11,7 @@
 </head>
 <body>
   <div class="header">
-    <h1 style="flex-grow:1;text-align:left;">Terka</h1>
-    <select style="border: none;" name="lang" id="lang" title="Pilih bahasa">
-      <option value="id">Bahasa Indonesia</option>
-    </select>
+    <a href="https://github.com/rizaumami/terka"><h1>Terka</h1></a>
     <button style="border: none;" type="button" onclick="window.location.reload(true)" title="Mulai ulang">
       <svg stroke="currentColor" viewBox="0 0 16 16">
         <path d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
@@ -44,13 +41,20 @@
       text-shadow: 1px 1px 1px #000;
       text-transform: capitalize;
     }
+    a {
+      flex-grow: 1;
+      text-decoration: none;
+    }
+    h1 {
+      text-align: left;
+    }
     .header{
-      cursor: pointer;
       margin-left: auto;
       margin-right: auto;
       width: 18.75rem;
     }
     svg {
+      cursor: pointer;
       height: 2rem;
       vertical-align: middle;
       width: 2rem;
@@ -58,7 +62,6 @@
     .letterbox,.cell,button {
       border-radius: .25rem;
       border: 2px solid #475569;
-      cursor: pointer;
       margin: 2px;
     }
     .container,.header,.status {
@@ -91,11 +94,20 @@
     .kbrow button {
       height: 3.25rem;
       width: 100%;
+      cursor: pointer;
     }
     .keyboard-container {
       bottom: 2px;
       position: fixed;
       width: 100%;
+    }
+    [name="Enter"] {
+      background-color: green;
+      border-color: #4ade80;
+    }
+    [name="Delete"] {
+      background-color: #ce1126;
+      border-color: red;
     }
   </style>
 
@@ -261,7 +273,6 @@
         this.body = options.body;
         this.container = options.container;
         this.statusElement = options.statusElement;
-        this.selectLangElement = options.selectLangElement;
         this.dictionary = options.dictionary;
         this.word = options.word;
         this.guesses = [];
@@ -303,14 +314,15 @@
         if (result === Guess.INVALID)
           return;
 
-        if (result === Guess.CORRECT) {
+        if (result === Guess.CORRECT || this.pointer == 5) {
           this.finished = true;
-          return;
-        }
-
-        if (this.pointer == 5) {
-          this.finished = true
-          this.statusElement.textContent = this.word;
+          let a = document.createElement('a');
+          let link = document.createTextNode(this.word);
+          a.appendChild(link);
+          a.href = 'https://kbbi.kemdikbud.go.id/entri/'+this.word;
+          a.title = 'Klik untuk melihat arti '+this.word+' di KBBI Daring.';
+          a.target = '_blank';
+          this.statusElement.appendChild(a);
           return;
         }
 
@@ -342,7 +354,7 @@
 
       bindInput(callback) {
         this.buttons.forEach(btn => {
-          const key = btn.name === 'Del' ? 'Backspace' : btn.name;
+          const key = btn.name === 'Delete' ? 'Backspace' : btn.name;
           btn.onclick = () => {
             document.body.dispatchEvent(
               new KeyboardEvent('keydown', { key: key })
@@ -375,20 +387,12 @@
 
     const container = document.querySelector('.container');
     const statusElement = document.querySelector('.status');
-    const selectLangElement = document.querySelector('select#lang');
-
-    status.textContent = selectLangElement.value;
-    selectLangElement.onchange = () => {
-      status.textContent = selectLangElement.value;
-    };
-
     const chosenWord = window.idWords[Math.floor(Math.random() * window.idWords.length)];
 
     const game = window.game = new Game({
       body: document.body,
       container: container,
       statusElement: statusElement,
-      selectLangElement: selectLangElement,
       dictionary: window.idWords,
       word: chosenWord
     });
