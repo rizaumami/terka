@@ -12,7 +12,7 @@
 <body>
   <div class="header">
     <a href="https://github.com/rizaumami/terka"><h1>Terka</h1></a>
-    <button style="border: none;" type="button" onclick="window.location.reload(true)" title="Mulai ulang">
+    <button style="border: none;" type="button" name="restart" title="Mulai ulang">
       <svg stroke="currentColor" viewBox="0 0 16 16">
         <path d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
         <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
@@ -328,6 +328,17 @@
 
         this.pointer += 1;
       }
+
+      restart() {
+        this.finished = false;
+        this.word = window.idWords[Math.floor(Math.random() * window.idWords.length)];
+        this.pointer = 0;
+        this.guesses.forEach(guess => {
+          guess.clear();
+        });
+        this.statusElement.textContent = '';
+      }
+
     }
 
     class Keyboard {
@@ -383,8 +394,15 @@
           }
         });
       }
+
+      clear() {
+        this.buttons.forEach(button => {
+          delete button.dataset.state;
+        });
+      }
     }
 
+    const restartButton = document.querySelector('button[name="restart"]');
     const container = document.querySelector('.container');
     const statusElement = document.querySelector('.status');
     const chosenWord = window.idWords[Math.floor(Math.random() * window.idWords.length)];
@@ -408,6 +426,12 @@
 
     game.init();
     game.bindInput();
+
+    restartButton.addEventListener('click', () => {
+      game.restart();
+      keyboard.clear();
+		  restartButton.blur();
+    })
   </script>
 </body>
 </html>
