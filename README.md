@@ -1,12 +1,19 @@
 # terka
 Terka adalah terka kata, sebuah permainan yang memberi Anda 6 kesempatan untuk menerka kata Bahasa Indonesia yang terdiri dari 5 huruf.
 
-Layaknya [Wordle](https://www.powerlanguage.co.uk/wordle/), namun lebih sederhana.  
-Berkas tunggal, terkaan tak berbatas, luring, dan dapat dimainkan pada semua perangkat yang mampu membuka berkas HTML/JS.
+Layaknya [Wordle](https://www.powerlanguage.co.uk/wordle/), namun lebih sederhana.
+
+## Fitur
+- Berkas tunggal. Hanya berkas [terka.html](terka.html).
+- _Portable_. Tidak perlu dipasang (_install_). Cukup salin berkas, kemudian jalankan.
+- Terkaan tak berbatas. Tidak perlu menunggu esok hari untuk menerka kata baru.
+- Sepenuhnya luring (_offline_).
+- Tanpa sensor kata.
+- Dapat dimainkan pada semua perangkat yang mampu membuka berkas HTML/JS.
 
 ## Cara bermain
 
-Terka kata dalam 6 kesempatan. 
+Terka kata dalam 6 kesempatan.
 Selepas tiap terkaan, warna ubin akan berubah untuk menunjukkan seberapa dekat terkaan Anda dengan kata rahasia.
 
 Jika warna ubin:
@@ -16,4 +23,4 @@ Jika warna ubin:
 
 ## Cara menjalankan
 
-Unduh berkas [index.html](index.html) ke dalam komputer atau telepon genggam, kemudian buka menggunakan peramban (_web browser_). 
+Unduh berkas [terka.html](terka.html) ke dalam komputer atau telepon genggam, kemudian buka menggunakan peramban (_web browser_).
